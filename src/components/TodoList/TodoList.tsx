@@ -7,12 +7,14 @@ type TodoListProps = {
   todos: Todo[];
   markTodo: (id: Todo["id"]) => void;
   deleteTodo: (id: Todo["id"]) => void;
+  moveDown: (id: Todo["id"]) => void;
 };
 
 export const TodoList: React.FC<TodoListProps> = ({
   todos,
   markTodo,
-  deleteTodo
+  deleteTodo,
+  moveDown
 }) => (
   <div>
     {todos.map((todo) => (
@@ -21,6 +23,7 @@ export const TodoList: React.FC<TodoListProps> = ({
         todo={todo}
         markTodo={markTodo}
         deleteTodo={deleteTodo}
+        moveDown={moveDown}
       />
     ))}
   </div>

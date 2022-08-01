@@ -20,6 +20,7 @@ const DEFAULT_TODO_LIST = [
 
 export const App = () => {
   const [todos, setTodos] = useState(DEFAULT_TODO_LIST);
+  const todosMovedId = [...todos];
 
   const addTodo = ({ name, description }: Omit<Todo, "id" | "checked">) => {
     setTodos([
@@ -30,6 +31,29 @@ export const App = () => {
 
   const deleteTodo = (id: Todo["id"]) => {
     setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  // const findIndex = (id: Todo["id"]) => {
+  //   for (let i = 0; i < todos.length; i++) {
+  //     if (todos[i].id === id) {
+  //       return i;
+  //     }
+  //   }
+  // };
+
+  const moveDown = (id: Todo["id"]) => {
+    let value = 0;
+
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === id) {
+        value = i;
+      }
+    }
+
+    // let indexOfId = findIndex(id);
+    todosMovedId[value] = todos[value - 1];
+    todosMovedId[value - 1] = todos[value];
+    setTodos(todosMovedId);
   };
 
   const markTodo = (id: Todo["id"]) => {
@@ -48,7 +72,12 @@ export const App = () => {
     <div className="App">
       <h1 className="title">Todo app</h1>
       <TodoForm addTodo={addTodo} />
-      <TodoList todos={todos} markTodo={markTodo} deleteTodo={deleteTodo} />
+      <TodoList
+        todos={todos}
+        markTodo={markTodo}
+        deleteTodo={deleteTodo}
+        moveDown={moveDown}
+      />
     </div>
   );
 };
