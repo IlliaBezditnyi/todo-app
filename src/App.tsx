@@ -41,7 +41,7 @@ export const App = () => {
   //   }
   // };
 
-  const moveDown = (id: Todo["id"]) => {
+  const moveUp = (id: Todo["id"]) => {
     let value = 0;
 
     for (let i = 0; i < todos.length; i++) {
@@ -53,6 +53,20 @@ export const App = () => {
     // let indexOfId = findIndex(id);
     todosMovedId[value] = todos[value - 1];
     todosMovedId[value - 1] = todos[value];
+    setTodos(todosMovedId);
+  };
+
+  const moveDown = (id: Todo["id"]) => {
+    let value = 0;
+
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === id) {
+        value = i;
+      }
+    }
+
+    todosMovedId[value] = todos[value + 1];
+    todosMovedId[value + 1] = todos[value];
     setTodos(todosMovedId);
   };
 
@@ -76,6 +90,7 @@ export const App = () => {
         todos={todos}
         markTodo={markTodo}
         deleteTodo={deleteTodo}
+        moveUp={moveUp}
         moveDown={moveDown}
       />
     </div>

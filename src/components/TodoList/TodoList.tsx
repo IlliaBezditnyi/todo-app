@@ -7,6 +7,7 @@ type TodoListProps = {
   todos: Todo[];
   markTodo: (id: Todo["id"]) => void;
   deleteTodo: (id: Todo["id"]) => void;
+  moveUp: (id: Todo["id"]) => void;
   moveDown: (id: Todo["id"]) => void;
 };
 
@@ -14,6 +15,7 @@ export const TodoList: React.FC<TodoListProps> = ({
   todos,
   markTodo,
   deleteTodo,
+  moveUp,
   moveDown
 }) => (
   <div>
@@ -23,6 +25,7 @@ export const TodoList: React.FC<TodoListProps> = ({
         todo={todo}
         markTodo={markTodo}
         deleteTodo={deleteTodo}
+        moveUp={moveUp}
         moveDown={moveDown}
       />
     ))}

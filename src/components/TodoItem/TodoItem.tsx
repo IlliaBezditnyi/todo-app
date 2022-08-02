@@ -8,6 +8,7 @@ type TodoItemProps = {
   todo: Todo;
   markTodo: (id: Todo["id"]) => void;
   deleteTodo: (id: Todo["id"]) => void;
+  moveUp: (id: Todo["id"]) => void;
   moveDown: (id: Todo["id"]) => void;
 };
 
@@ -15,6 +16,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   todo,
   markTodo,
   deleteTodo,
+  moveUp,
   moveDown
 }) => {
   console.log(todo);
@@ -36,6 +38,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
         <div className="todoItem_description">{todo.description}</div>
 
         <div className="todoItem_button">
+          <button onClick={() => moveUp(todo.id)}>UP</button>
           <button onClick={() => moveDown(todo.id)}>DOWN</button>
           <button onClick={() => deleteTodo(todo.id)}>DELETE</button>
         </div>
