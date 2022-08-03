@@ -3,11 +3,5 @@ export interface Todo {
   name: string;
   description: string;
   checked: boolean;
-  subTodo: [
-    {
-      id: number;
-      name: string;
-      description: string;
-    }
-  ];
+  subTodo: any[];
 }

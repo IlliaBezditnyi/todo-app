@@ -1,8 +1,9 @@
 import React, { useState, ChangeEvent } from "react";
 
-import { App } from "../../App";
-
 import { Todo } from "../types/types";
+
+import "../TodoForm/TodoForm.css";
+import "./TodoSubForm.css";
 
 const DEFAULT_TODO = { name: "", description: "" };
 
@@ -11,14 +12,14 @@ type TodoSubFormProps = {
   addTodo: ({ name, description }: Omit<Todo, "id" | "checked">) => void;
   showForm: boolean;
   addSubTodo: (id: Todo["id"], name: string, description: string) => void;
-  // name: string;
+  setShowForm: any;
 };
 
 export const TodoSubForm: React.FC<TodoSubFormProps> = ({
   id,
-  addTodo,
+  addSubTodo,
   showForm,
-  addSubTodo
+  setShowForm
 }) => {
   const [todo, setTodo] = useState(DEFAULT_TODO);
 
@@ -30,46 +31,48 @@ export const TodoSubForm: React.FC<TodoSubFormProps> = ({
   const onClick = () => {
     addSubTodo(id, todo.name, todo.description);
     setTodo(DEFAULT_TODO);
+    setShowForm(false);
   };
 
   return (
-    <div className="form_container">
+    <div>
       {showForm === true ? (
-        <div className="fields__container">
-          <div className="field__container">
-            <label htmlFor="name">
-              <div>name</div>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={todo.name}
-                onChange={onChange}
-              />
-            </label>
+        <>
+          <h1 className="form_title">add your sub list</h1>
+          <div className="form_container">
+            <div className="fields_container">
+              <div className="field_container">
+                <label htmlFor="name">
+                  <div>name</div>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={todo.name}
+                    onChange={onChange}
+                  />
+                </label>
+              </div>
+
+              <div className="field_container">
+                <label htmlFor="description">
+                  <div>description</div>
+                  <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    value={todo.description}
+                    onChange={onChange}
+                  />
+                </label>
+              </div>
+
+              <button className="button" onClick={() => onClick()}>
+                Add
+              </button>
+            </div>
           </div>
-
-          <div className="field__container">
-            <label htmlFor="description">
-              <div>description</div>
-              <input
-                type="text"
-                id="description"
-                name="description"
-                value={todo.description}
-                onChange={onChange}
-              />
-            </label>
-          </div>
-
-          <button className="button" onClick={() => onClick()}>
-            Add
-          </button>
-
-          {/* <div className="button__container">
-          <button onClick={onClick}>Add</button>
-        </div> */}
-        </div>
+        </>
       ) : null}
     </div>
   );

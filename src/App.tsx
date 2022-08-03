@@ -7,7 +7,7 @@ import { Todo } from "./components/types/types";
 
 import "./styles.css";
 
-const DEFAULT_TODO_LIST = [
+const DEFAULT_TODO_LIST: Todo[] = [
   {
     id: 1,
     name: "task 1",
@@ -36,7 +36,7 @@ export const App = () => {
   const [todos, setTodos] = useState<Todo[]>(DEFAULT_TODO_LIST);
   const todosMovedId = [...todos];
   const [showForm, setShowForm] = useState(false);
-  const [currentId, setcurrentId] = useState<any>();
+  const [currentId, setcurrentId] = useState<number>(1);
 
   const addTodo = ({
     name,
@@ -58,40 +58,25 @@ export const App = () => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  // const findIndex = (id: Todo["id"]) => {
-  //   for (let i = 0; i < todos.length; i++) {
-  //     if (todos[i].id === id) {
-  //       return i;
-  //     }
-  //   }
-  // };
-
-  const moveUp = (id: Todo["id"]) => {
-    let value = 0;
-
+  const findIndex = (id: Todo["id"]) => {
     for (let i = 0; i < todos.length; i++) {
       if (todos[i].id === id) {
-        value = i;
+        return i;
       }
     }
+  };
 
-    // let indexOfId = findIndex(id);
-    todosMovedId[value] = todos[value - 1];
-    todosMovedId[value - 1] = todos[value];
+  const moveUp = (id: Todo["id"]) => {
+    let indexOfId: any = findIndex(id);
+    todosMovedId[indexOfId] = todos[indexOfId - 1];
+    todosMovedId[indexOfId - 1] = todos[indexOfId];
     setTodos(todosMovedId);
   };
 
   const moveDown = (id: Todo["id"]) => {
-    let value = 0;
-
-    for (let i = 0; i < todos.length; i++) {
-      if (todos[i].id === id) {
-        value = i;
-      }
-    }
-
-    todosMovedId[value] = todos[value + 1];
-    todosMovedId[value + 1] = todos[value];
+    let indexOfId: any = findIndex(id);
+    todosMovedId[indexOfId] = todos[indexOfId + 1];
+    todosMovedId[indexOfId + 1] = todos[indexOfId];
     setTodos(todosMovedId);
   };
 
@@ -122,7 +107,6 @@ export const App = () => {
       todos.map((todo) => {
         if (todo.id === id) {
           console.log(todo.id);
-          // return { ...todo, subTodo: [{id: 4, name: name, description: description}] };
           todo.subTodo.push({
             id: id * Math.random(),
             name: name,
@@ -137,41 +121,9 @@ export const App = () => {
     console.log(todos);
   };
 
-  const removeSub = (listId: number, id: number) => {
-    // console.log(todos[listId - 1].subTodo.filter((todo) => todo.id !== id))
-    // setTodos(todos[listId - 1].subTodo.filter((todo) => todo.id !== id))
-    // setTodos(todos.filter((todo) => todo.subTodo.id !== id))
-    return;
+  const removeSub = (listId: any, id: Todo["id"]) => {
+    setTodos(todos[listId - 1].subTodo.filter((todo) => todo.id !== id));
   };
-
-  // const onAddSubNote = () => {
-  //   const newNotes: [] = [...JSON.parse(JSON.stringify(todos))];
-  //   addSubNotes(newNotes);
-  //   setTodos(newNotes);
-  // };
-
-  // const addSubTodo = (todos: []) => {
-  //   for (let todo of todos) {
-  //     if (todo.id === id) {
-  //       todo.isShowAddSubButton = false;
-  //       todo.todos = [
-  //         ...todo.notes,
-  //         {
-  //           id: todos[todos.length - 1].id + 1,
-  //           name: name,
-  //           notes: [],
-  //           isShowAddSubButton: false,
-  //           isShowFuncButton: false
-  //         }
-  //       ];
-  //       // setTitle("");
-  //       return;
-  //     }
-  //     if (note.notes.length > 0) {
-  //       addSubNotes(note.notes);
-  //     }
-  //   }
-  // };
 
   return (
     <div className="App">
@@ -179,22 +131,20 @@ export const App = () => {
       <TodoForm addTodo={addTodo} />
       <TodoList
         todos={todos}
+        addTodo={addTodo}
         markTodo={markTodo}
         deleteTodo={deleteTodo}
         moveUp={moveUp}
         moveDown={moveDown}
-        showForm={showForm}
         addSubForm={addSubForm}
         removeSub={removeSub}
       />
       <TodoSubForm
+        id={currentId}
         addTodo={addTodo}
         showForm={showForm}
-        id={currentId}
         addSubTodo={addSubTodo}
-        // name={todos[currentId].name}
-        // todos={todos}
-        // setTodos={setTodos}
+        setShowForm={setShowForm}
       />
     </div>
   );

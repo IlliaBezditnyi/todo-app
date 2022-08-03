@@ -9,24 +9,24 @@
   justify-content: center;
 }
 
-.fields__container {
+.fields_container {
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
 
-.field__container {
+.field_container {
   width: 100%;
 }
 
-.field__container label {
+.field_container label {
   display: flex;
   flex-direction: column;
   gap: 5px;
   font-size: 15px;
 }
 
-.field__container input {
+.field_container input {
   font-size: 15px;
   padding: 10px 5px;
   border-radius: 2px;
@@ -39,8 +39,4 @@
   padding: 10px;
   display: flex;
   align-items: center;
-}
-
-.fields__container2 {
-  display: block;
 }

@@ -1,7 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
 
-import { App } from "../../App";
-
 import { Todo } from "../types/types";
 
 import "./TodoForm.css";
@@ -27,8 +25,8 @@ export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
 
   return (
     <div className="form_container">
-      <div className="fields__container">
-        <div className="field__container">
+      <div className="fields_container">
+        <div className="field_container">
           <label htmlFor="name">
             <div>name</div>
             <input
@@ -41,7 +39,7 @@ export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
           </label>
         </div>
 
-        <div className="field__container">
+        <div className="field_container">
           <label htmlFor="description">
             <div>description</div>
             <input
@@ -57,11 +55,6 @@ export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
         <button className="button" onClick={onClick}>
           Add
         </button>
-
-        {/* <div className="button__container">
-          <button onClick={onClick}>Add</button>
-        </div> */}
-        <br />
       </div>
     </div>
   );
