@@ -1,16 +1,18 @@
 import React, { useState, ChangeEvent } from "react";
 
+import { App } from "../../App";
+
 import { Todo } from "../types/types";
 
 import "./TodoForm.css";
 
 const DEFAULT_TODO = { name: "", description: "" };
 
-type TodoPanelProps = {
+type TodoFormProps = {
   addTodo: ({ name, description }: Omit<Todo, "id" | "checked">) => void;
 };
 
-export const TodoForm: React.FC<TodoPanelProps> = ({ addTodo }) => {
+export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   const [todo, setTodo] = useState(DEFAULT_TODO);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +21,7 @@ export const TodoForm: React.FC<TodoPanelProps> = ({ addTodo }) => {
   };
 
   const onClick = () => {
-    addTodo({ name: todo.name, description: todo.description });
+    addTodo({ name: todo.name, description: todo.description, subTodo: [] });
     setTodo(DEFAULT_TODO);
   };
 
@@ -52,9 +54,14 @@ export const TodoForm: React.FC<TodoPanelProps> = ({ addTodo }) => {
           </label>
         </div>
 
-        <div className="button__container">
+        <button className="button" onClick={onClick}>
+          Add
+        </button>
+
+        {/* <div className="button__container">
           <button onClick={onClick}>Add</button>
-        </div>
+        </div> */}
+        <br />
       </div>
     </div>
   );

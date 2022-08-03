@@ -1,8 +1,9 @@
 .todoItem_container {
+  margin: 0 auto;
   background-color: white;
   box-shadow: 0px 8px 11px -8px rgba(34, 60, 80, 0.09);
   margin-bottom: 15px;
-  width: 100%;
+  width: 500px;
   padding: 25px 20px;
   border-radius: 5px;
 }
@@ -23,4 +24,38 @@
   display: flex;
   justify-content: right;
   gap: 5px;
+  margin-bottom: 20px;
+}
+
+.subTodo_container {
+  box-shadow: 0px 8px 11px 8px rgba(34, 60, 80, 0.09);
+  margin-bottom: 15px;
+  width: 500px;
+  padding: 25px 20px;
+  border-radius: 5px;
+}
+
+.subTodo_wrapper {
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0px 8px 11px 8px rgba(34, 60, 80, 0.09);
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.subTodo_title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.subTodo_description {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.subTodo_button {
+  display: flex;
+  justify-content: right;
 }
