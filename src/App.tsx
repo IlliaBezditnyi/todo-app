@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { TodoForm } from "./components/TodoForm/TodoForm";
 import { TodoSubForm } from "./components/TodoSubForm/TodoSubForm";
@@ -33,7 +33,21 @@ const DEFAULT_TODO_LIST: Todo[] = [
 ];
 
 export const App = () => {
-  const [todos, setTodos] = useState<Todo[]>(DEFAULT_TODO_LIST);
+  // const [todos, setTodos] = useState<Todo[]>(DEFAULT_TODO_LIST);
+  const savedTodos = () =>
+    localStorage.getItem("todos")
+      ? JSON.parse(localStorage.getItem("todos"))
+      : [];
+  const [todos, setTodos] = useState(savedTodos());
+
+  useEffect(() => {
+    if (todos.length > 0) {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    } else {
+      localStorage.setItem("todos", JSON.stringify([]));
+    }
+  }, [todos]);
+
   const todosMovedId = [...todos];
   const [showForm, setShowForm] = useState(false);
   const [currentId, setcurrentId] = useState<number>(1);
@@ -130,7 +144,8 @@ export const App = () => {
           (todo) => todo.id !== id
         ))
     );
-    console.log(todos);
+
+    // return todos;
   };
 
   return (
