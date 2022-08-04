@@ -45,7 +45,7 @@ export const App = () => {
     setTodos([
       ...todos,
       {
-        id: todos[todos.length - 1].id + 1,
+        id: (todos[todos.length - 1]?.id || 0) + 1,
         name,
         description,
         checked: false,
@@ -110,7 +110,9 @@ export const App = () => {
           todo.subTodo.push({
             id: id * Math.random(),
             name: name,
-            description: description
+            description: description,
+            checked: false,
+            subTodo: []
           });
         }
 
@@ -122,7 +124,13 @@ export const App = () => {
   };
 
   const removeSub = (listId: any, id: Todo["id"]) => {
-    setTodos(todos[listId - 1].subTodo.filter((todo) => todo.id !== id));
+    setTodos(
+      () =>
+        (todos[listId - 1].subTodo = todos[listId - 1].subTodo.filter(
+          (todo) => todo.id !== id
+        ))
+    );
+    console.log(todos);
   };
 
   return (
