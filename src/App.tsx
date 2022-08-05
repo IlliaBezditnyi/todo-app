@@ -149,6 +149,13 @@ export const App = () => {
     <div className="App">
       <h1 className="title">Todo app</h1>
       <TodoForm addTodo={addTodo} />
+      <TodoSubForm
+        id={currentId}
+        addTodo={addTodo}
+        showForm={showForm}
+        addSubTodo={addSubTodo}
+        setShowForm={setShowForm}
+      />
       <TodoList
         todos={todos}
         addTodo={addTodo}
@@ -158,13 +165,6 @@ export const App = () => {
         moveDown={moveDown}
         addSubForm={addSubForm}
         removeSub={removeSub}
-      />
-      <TodoSubForm
-        id={currentId}
-        addTodo={addTodo}
-        showForm={showForm}
-        addSubTodo={addSubTodo}
-        setShowForm={setShowForm}
       />
     </div>
   );
