@@ -38,7 +38,7 @@ export const TodoSubForm: React.FC<TodoSubFormProps> = ({
     <div>
       {showForm === true ? (
         <>
-          <h1 className="form_title">add your sub list</h1>
+          <h1 className="form_title">Add your sub list</h1>
           <div className="form_container">
             <div className="fields_container">
               <div className="field_container">

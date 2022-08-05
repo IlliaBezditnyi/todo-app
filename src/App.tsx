@@ -33,7 +33,6 @@ const DEFAULT_TODO_LIST: Todo[] = [
 ];
 
 export const App = () => {
-  // const [todos, setTodos] = useState<Todo[]>(DEFAULT_TODO_LIST);
   const savedTodos = () =>
     localStorage.getItem("todos")
       ? JSON.parse(localStorage.getItem("todos"))
@@ -44,7 +43,7 @@ export const App = () => {
     if (todos.length > 0) {
       localStorage.setItem("todos", JSON.stringify(todos));
     } else {
-      localStorage.setItem("todos", JSON.stringify([]));
+      localStorage.setItem("todos", JSON.stringify(DEFAULT_TODO_LIST));
     }
   }, [todos]);
 
@@ -69,7 +68,7 @@ export const App = () => {
   };
 
   const deleteTodo = (id: Todo["id"]) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos(todos.filter((todo: Todo) => todo.id !== id));
   };
 
   const findIndex = (id: Todo["id"]) => {
@@ -96,7 +95,7 @@ export const App = () => {
 
   const markTodo = (id: Todo["id"]) => {
     setTodos(
-      todos.map((todo) => {
+      todos.map((todo: Todo) => {
         if (todo.id === id) {
           return { ...todo, checked: !todo.checked };
         }
@@ -107,7 +106,7 @@ export const App = () => {
   };
 
   const addSubForm = (id: Todo["id"]) => {
-    todos.map((todo) => {
+    todos.map((todo: Todo) => {
       if (todo.id === id) {
         setShowForm(true);
       }
@@ -118,7 +117,7 @@ export const App = () => {
 
   const addSubTodo = (id: Todo["id"], name: string, description: string) => {
     setTodos(
-      todos.map((todo) => {
+      todos.map((todo: Todo) => {
         if (todo.id === id) {
           console.log(todo.id);
           todo.subTodo.push({
@@ -138,14 +137,12 @@ export const App = () => {
   };
 
   const removeSub = (listId: any, id: Todo["id"]) => {
-    setTodos(
-      () =>
-        (todos[listId - 1].subTodo = todos[listId - 1].subTodo.filter(
-          (todo) => todo.id !== id
-        ))
-    );
-
-    // return todos;
+    setTodos(() => {
+      todos[listId - 1].subTodo = todos[listId - 1].subTodo.filter(
+        (todo: Todo) => todo.id !== id
+      );
+      return todos;
+    });
   };
 
   return (
